@@ -1,63 +1,34 @@
-// const main = async () => {
-//   // Prompt user to select any serial port.
-//   const port = await navigator.serial.requestPort();
-//   // Wait for the serial port to open.
-//   await port.open({ baudRate: 115200 });
-//   const textDecoder = new TextDecoder();
-//   // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
-//   const reader = port.readable.getReader();
-
-//   // Listen to data coming from the serial device.
-//     const { value, done } = await reader.read();
-//     if (done) {
-//       // Allow the serial port to be closed later.
-//       reader.releaseLock();
-//     }
-//     // value is a string.
-//     console.log(textDecoder.decode(value));
-// };
-
-//main();
-
-class IDReader {
-  constructor (port) {
-    this.port = port;
-  }
-}
-
 let port;
 let reader;
 let isReading = true;
+let count = 0;
 
-async function connect() {
-  // Filter on devices with the Arduino Uno USB Vendor/Product IDs.
-  const filters = [
-    { usbVendorId: 0x2341, usbProductId: 0x0043 },
-    { usbVendorId: 0x2341, usbProductId: 0x0001 }
-  ];
+const displayCard = (value) => {
+  console.log(value);
+  if (value.includes('UID Value')) {
+    if (count % 2 === 0)
+      document.getElementById('first').src = 'https://liminal11.com/wp-content/uploads/2018/04/the-magician-tarot-web.png';
+    if (count % 3 === 0)
+      document.getElementById('second').src = 'https://liminal11.com/wp-content/uploads/2018/04/the-magician-tarot-web.png';
+    else
+      document.getElementById('third').src = 'https://liminal11.com/wp-content/uploads/2018/04/the-magician-tarot-web.png';
+    ++count;
+    console.log(count)
+  }
+}
 
-  port = await navigator.serial.requestPort({ filters });
-  console.log(port);
-  // Wait for the serial port to open.
-  await port.open({ baudRate: 115200 });
-  const textDecoder = new TextDecoderStream();
-  // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+// Listen to data coming from the serial device.
+const listen = async (port) => {
+  const decoder = new TextDecoderStream();
+  port.readable.pipeTo(decoder.writable);
 
-  // Listen to data coming from the serial device.
   while (port.readable && isReading) {
-    reader = textDecoder.readable.getReader();
-    console.log(reader);
+    reader = decoder.readable.getReader();
     try {
       while (true) {
         const { value, done } = await reader.read();
-        if (done) {
-          // Allow the serial port to be closed later.
-          // reader.releaseLock();
-          break;
-        }
-        // value is a string.
-        // console.log(textDecoder.decode(value));
-        console.log(value);
+        if (done) break; // Allow the serial port to be closed later.
+        displayCard(value)
       }
     } catch (e) {
       console.error(e);
@@ -65,11 +36,25 @@ async function connect() {
       reader.releaseLock();
     }
   }
+};
+
+async function connect() {
+  // Filter on devices with the Arduino Uno USB Vendor/Product IDs.
+  const filters = [
+    { usbVendorId: 0x2341, usbProductId: 0x0043 },
+    { usbVendorId: 0x2341, usbProductId: 0x0001 }
+  ];
+  port = await navigator.serial.requestPort({ filters });
+  console.log(port);
+
+  // Wait for the serial port to open.
+  await port.open({ baudRate: 115200 });
+
+  listen(port);
 }
 
-async function close() {
-  await reader.cancel();
+async function cancel() {
   await port.close();
+  await reader.cancel();
   isReading = false;
-  console.log(port);
 }
