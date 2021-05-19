@@ -1,0 +1,2 @@
+# serial-magic
+Serielsly magical
