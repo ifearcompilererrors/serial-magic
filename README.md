@@ -1,2 +1,2 @@
 # serial-magic
-Serielsly magical
+Serialsly magical 🔮✨
