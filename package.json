@@ -1,0 +1,23 @@
+{
+  "name": "serial-magic",
+  "version": "1.0.0",
+  "description": "Serialsly magical 🔮✨",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifearcompilererrors/serial-magic.git"
+  },
+  "author": "ifearcompilererrors",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ifearcompilererrors/serial-magic/issues"
+  },
+  "homepage": "https://github.com/ifearcompilererrors/serial-magic#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
+}

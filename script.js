@@ -1,19 +1,21 @@
 let port;
 let reader;
 let isReading = true;
+
 let count = 0;
+const ids = ['first', 'second', 'third'];
+
+const setCardUrl = async () => {
+  const asset = await fetch('/asset');
+  console.log(asset);
+  document.getElementById(ids[count%3]).src = asset;
+};
 
 const displayCard = (value) => {
   console.log(value);
   if (value.includes('UID Value')) {
-    if (count % 2 === 0)
-      document.getElementById('first').src = 'https://liminal11.com/wp-content/uploads/2018/04/the-magician-tarot-web.png';
-    if (count % 3 === 0)
-      document.getElementById('second').src = 'https://liminal11.com/wp-content/uploads/2018/04/the-magician-tarot-web.png';
-    else
-      document.getElementById('third').src = 'https://liminal11.com/wp-content/uploads/2018/04/the-magician-tarot-web.png';
+    setCardUrl();
     ++count;
-    console.log(count)
   }
 }
 
@@ -28,7 +30,7 @@ const listen = async (port) => {
       while (true) {
         const { value, done } = await reader.read();
         if (done) break; // Allow the serial port to be closed later.
-        displayCard(value)
+        displayCard(value);
       }
     } catch (e) {
       console.error(e);

@@ -8,10 +8,13 @@
     <title>Serial Magic ✨!</title>
     
     <!-- <link rel="stylesheet" href="/style.css"> -->
-    <script src="script.js" defer></script>
+    <script src="/script.js" defer></script>
 
     <style>
-      img {
+      body {
+        background-color: #222;
+      }
+      video {
         width: 200px;
         height: 300px;
       }
@@ -21,10 +24,9 @@
     <button onclick="connect()">connect</button>
     <button onclick="cancel()">close</button>
     <div>
-      <img id="first"/>
-      <img id="second" />
-      <img id="third" />
+      <video autoplay><source id="first" type="video/mp4" /></video>
+      <video autoplay><source id="second" type="video/mp4" /></video>
+      <video autoplay><source id="third" type="video/mp4" /></video>
     </div>
   </body>
 </html>
-
