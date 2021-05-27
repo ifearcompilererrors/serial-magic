@@ -8,7 +8,7 @@
     <title>Serial Magic ✨!</title>
     
     <!-- <link rel="stylesheet" href="/style.css"> -->
-    <script src="/script.js" defer></script>
+    <script src="script.js" defer></script>
 
     <style>
       body {
@@ -18,15 +18,23 @@
         width: 200px;
         height: 300px;
       }
+      img {
+        width: 30vw;
+      }
     </style>
   </head>  
   <body>
-    <button onclick="connect()">connect</button>
-    <button onclick="cancel()">close</button>
+    <div id="controls">
+      <button onclick="connect()">connect</button>
+      <button onclick="cancel()">close</button>
+    </div>
     <div>
-      <video autoplay><source id="first" type="video/mp4" /></video>
+      <!-- <video autoplay><source id="first" type="video/mp4" /></video>
       <video autoplay><source id="second" type="video/mp4" /></video>
-      <video autoplay><source id="third" type="video/mp4" /></video>
+      <video autoplay><source id="third" type="video/mp4" /></video> -->
+      <img id="first" />
+      <img id="second" />
+      <img id="third" />
     </div>
   </body>
 </html>
