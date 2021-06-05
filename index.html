@@ -14,12 +14,16 @@
       body {
         background-color: #222;
       }
+
       video {
-        width: 200px;
-        height: 300px;
-      }
-      img {
         width: 30vw;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
       }
     </style>
   </head>  
@@ -28,13 +32,10 @@
       <button onclick="connect()">connect</button>
       <button onclick="cancel()">close</button>
     </div>
-    <div>
-      <!-- <video autoplay><source id="first" type="video/mp4" /></video>
-      <video autoplay><source id="second" type="video/mp4" /></video>
-      <video autoplay><source id="third" type="video/mp4" /></video> -->
-      <img id="first" />
-      <img id="second" />
-      <img id="third" />
+    <div class="container">
+      <span id="first"></span>
+      <span id="second"></span>
+      <span id="third"></span>
     </div>
   </body>
 </html>

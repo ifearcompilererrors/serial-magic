@@ -2,30 +2,42 @@ let port;
 let reader;
 let isReading = true;
 
-let count = 0;
+let count = 0; // tmp
 const ids = ['first', 'second', 'third'];
+let seenCards = {};
 
-const setCardUrl = async () => {
+const setCardAnimation = async () => {
   let asset;
+
+  const isDisplayed = (a) => {
+    if (seenCards[a]) {
+      return true;
+    } else {
+      seenCards[a] = true;
+    }
+
+    return false;
+  }
 
   // demo purposes
   if (document.location.href.includes('serial-magic/index.html')) {  
-    if (count%3 == 0) asset = 'https://ih1.redbubble.net/image.350564324.7307/flat,800x800,075,f.u1.jpg';
-    if (count % 3 == 1) asset = 'https://i.pinimg.com/736x/23/1f/49/231f49d0d200ebcb63d35f381be24a81.jpg';
-    if (count % 3 == 2) asset = 'https://i.pinimg.com/originals/8a/2d/2e/8a2d2e26d93a2d619401a0e8af8ec09e.jpg';
+    if (count % 3 == 0) asset = 'assets/justice.mp4';
+    if (count % 3 == 1) asset = 'assets/tower.mp4';
+    if (count % 3 == 2) asset = 'assets/death.mp4';
   } else {
     asset = await fetch('/asset');
   }
 
-  console.log(asset);
-  document.getElementById(ids[count%3]).src = asset;
+  // document.getElementById(ids[count%3]).src = asset;
+  if (isDisplayed(asset)) return;
+
+  document.getElementById(ids[count%3]).innerHTML = `<video playsinline autoplay muted loop><source type="video/mp4" src="${asset}" /></video>`;
+  ++count;
 };
 
 const displayCard = (value) => {
-  console.log(value);
   if (value.includes('UID')) {
-    setCardUrl();
-    ++count;
+    setCardAnimation();
   }
 };
 
