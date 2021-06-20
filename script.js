@@ -37,6 +37,7 @@ const reset = () => {
   ['first', 'second', 'third'].forEach((id) => 
     document.getElementById(id).innerHTML = `<video playsinline autoplay muted loop><source type="video/mp4" src="" /></video>`
   );
+  count = 0;
 };
 
 const setCardAnimation = async (cardName) => {
