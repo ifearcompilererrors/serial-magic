@@ -36,8 +36,10 @@ let seenCards = {};
 const reset = () => {
   ['first', 'second', 'third'].forEach((id) => 
     document.getElementById(id).innerHTML = `<video playsinline autoplay muted loop><source type="video/mp4" src="" /></video>`
+    // document.getElementById(id).style.display = 'none'
   );
   count = 0;
+  seenCards = {};
 };
 
 const setCardAnimation = async (cardName) => {
@@ -68,6 +70,7 @@ const setCardAnimation = async (cardName) => {
 
   if (isDisplayed(asset)) return;
 
+  console.log(document.getElementById(ids[count % 3]))
   document.getElementById(ids[count%3]).innerHTML = `<video playsinline autoplay muted loop><source type="video/mp4" src="${asset}" /></video>`;
   ++count;
 };
