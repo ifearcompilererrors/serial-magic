@@ -1,4 +1,3 @@
-const DEMO = false;
 const TAROT_IDS = Object.freeze({
   '0x70 0xCC 0xF9': 'the fool',
   '0x80 0xC6 0xED': 'the magician',
@@ -29,14 +28,13 @@ let port;
 let reader;
 let isReading = true;
 
-let count = 0; // tmp
+let count = 0;
 const ids = ['first', 'second', 'third'];
 let seenCards = {};
 
 const reset = () => {
   ['first', 'second', 'third'].forEach((id) => 
     document.getElementById(id).innerHTML = `<video playsinline autoplay muted loop><source type="video/mp4" src="" /></video>`
-    // document.getElementById(id).style.display = 'none'
   );
   count = 0;
   seenCards = {};
@@ -60,13 +58,7 @@ const setCardAnimation = async (cardName) => {
     return;
   }
 
-  if (DEMO) {  
-    if (count % 3 == 0) asset = 'assets/justice.mp4';
-    if (count % 3 == 1) asset = 'assets/tower.mp4';
-    if (count % 3 == 2) asset = 'assets/death.mp4';
-  } else {
-    asset = `assets/${cardName}.mp4`;
-  }
+  asset = `assets/${cardName}.mp4`;
 
   if (isDisplayed(asset)) return;
 
