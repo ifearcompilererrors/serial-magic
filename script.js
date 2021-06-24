@@ -7,7 +7,7 @@ const TAROT_IDS = Object.freeze({
   '0x60 0xF3 0xEB': 'the hierophant',
   '0xE0 0xCD 0xF9': 'the lovers',
   '0xD0 0xBC 0xF8': 'the chariot',
-  '0x10 0x4D 0xF9': 'strength',
+  '0x40 0x72 0xF5': 'strength',
   '0xC0 0x5C 0xE9': 'the hermit',
   '0xE0 0x16 0xE8': 'wheel of fortune',
   '0x20 0xE0 0xF0': 'justice',
@@ -15,7 +15,7 @@ const TAROT_IDS = Object.freeze({
   '0xF0 0x6F 0xF5': 'death',
   '0xE0 0xA1 0xEC': 'temperance',
   '0x90 0xB2 0xFA': 'the devil',
-  '0x40 0x72 0xF5': 'the tower',
+  '0x10 0x4D 0xF9': 'the tower',
   '0x70 0x40 0xFA': 'the star',
   '0x70 0xF8 0xEA': 'the moon',
   '0x0 0x9 0xEC': 'the sun',
@@ -36,9 +36,10 @@ const ids = ['first', 'second', 'third'];
 let seenCards = {};
 
 const reset = () => {
-  ['first', 'second', 'third'].forEach((id) => 
-    document.getElementById(id).innerHTML = `<video playsinline autoplay muted loop><source type="video/mp4" src="" /></video>`
-  );
+  ['first', 'second', 'third'].forEach((id) => {
+    document.getElementById(id).style.display = 'none';
+    document.getElementById(id).innerHTML = '';
+  });
   count = 0;
   seenCards = {};
 };
@@ -65,8 +66,9 @@ const setCardAnimation = async (cardName) => {
 
   if (isDisplayed(asset)) return;
 
-  console.log(document.getElementById(ids[count % 3]))
-  document.getElementById(ids[count%3]).innerHTML = `<video playsinline autoplay muted loop><source type="video/mp4" src="${asset}" /></video>`;
+  console.log(document.getElementById(ids[count % 3]));
+  document.getElementById(ids[count % 3]).style.display = 'block';
+  document.getElementById(ids[count % 3]).innerHTML = `<video playsinline autoplay muted loop><source type="video/mp4" src="${asset}" /></video>`;
   ++count;
 };
 
