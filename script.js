@@ -21,10 +21,6 @@ const TAROT_IDS = Object.freeze({
   '0x0 0x9 0xEC': 'the sun',
   '0xF0 0x13 0xFB': 'judgement',
   '0x10 0xAE 0xF4': 'the world',
-  '0x20 0xE0 0xE8': 'reset',
-  '0xE0 0x1A 0xE8': 'reset',
-  '0xF0 0xC 0xEC': 'reset',
-  '0xB0 0xCF 0xF8': 'reset',
 });
 
 let port;
@@ -57,11 +53,6 @@ const setCardAnimation = async (cardName) => {
     return false;
   }
 
-  if (cardName === 'reset') {
-    reset();
-    return;
-  }
-
   asset = `assets/${cardName}.mp4`;
 
   if (isDisplayed(asset)) return;
@@ -83,6 +74,8 @@ const displayCard = (value) => {
   if (cardName) {
     console.log(cardName);
     setCardAnimation(cardName);
+  } else {
+    reset();
   }
 };
 
